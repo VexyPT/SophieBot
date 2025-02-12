@@ -4,6 +4,13 @@ import { t } from "../utils.js";
 export const guildSchema = new Schema(
     {
         id: t.string,
+        autoroles: [
+            {
+                roleId: t.roleInfo,
+                forBots: t.boolean,
+                forHumans: t.boolean
+            }
+        ]
     },
     {
         statics: {
