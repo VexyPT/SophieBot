@@ -20,7 +20,7 @@ createEvent({
                 "usou o contexto de mensagem"
             ];
 
-            let content = `${emoji[commandType - 1]} ${time(createdAt, "R")}`;
+            let content = `${emoji[commandType - 1]} ${time(createdAt, "R")} `;
             content += `**@${user.username}**(${user.id}) `;
             content += `__${text[commandType - 1]}__ `;
             content += `\`${commandName}\` `;
