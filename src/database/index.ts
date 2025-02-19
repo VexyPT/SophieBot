@@ -14,7 +14,7 @@ try {
 
 export const db = {
    guilds: model("guild", guildSchema, "guilds"),
-   users: model("user", userSchema, "users")
+   users: model("user", userSchema, "users"),
 };
 
 export type GuildSchema = InferSchemaType<typeof guildSchema>;
