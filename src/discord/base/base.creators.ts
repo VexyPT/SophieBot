@@ -5,6 +5,7 @@ import { baseEventLog, EventData } from "./base.event.js";
 import { baseResponderLog, ResponderData, ResponderType } from "./base.responder.js";
 import { baseStorage } from "./base.storage.js";
 import { BaseStorageCommandConfig, BaseStorageRespondersConfig } from "./base.types.js";
+import { basePrefixCommandLog, PrefixCommandData } from "./base.prefix.js";
 
 interface CommandCreatorOptions extends Partial<BaseStorageCommandConfig> {
     defaultMemberPermissions?: PermissionResolvable[];
@@ -49,6 +50,13 @@ export function setupCreators(options: SetupCreatorsOptions = {}){
 
             baseCommandLog(data);
 
+            return data;
+        },
+        createPrefixCommand: function(data: PrefixCommandData) {
+            /** @store */
+            baseStorage.prefix.set(data.name, data);
+
+            basePrefixCommandLog(data);
             return data;
         },
         createEvent: function<

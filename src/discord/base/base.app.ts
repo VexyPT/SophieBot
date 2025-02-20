@@ -7,6 +7,7 @@ import { baseResponderHandler } from "./base.responder.js";
 import { baseStorage } from "./base.storage.js";
 import glob from "fast-glob";
 import ck from "chalk";
+import { basePrefixCommandHandler } from "./base.prefix.js";
 
 interface BootstrapOptions extends Partial<ClientOptions> {
     meta: ImportMeta;
@@ -100,6 +101,8 @@ function createClient(token: string, options: BootstrapOptions) {
                 return;
         }
     });
+
+    client.on("messageCreate", basePrefixCommandHandler);
 
     return client;
 }

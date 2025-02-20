@@ -48,7 +48,4 @@
   "window.title": "${rootName}${separator}",
   "files.autoSave": "afterDelay",
   "typescript.experimental.expandableHover": true,
-  "files.readonlyInclude": {
-    "src/discord/base/**": true
-  },
 }

@@ -2,6 +2,7 @@ import { CacheType, Client, ClientEvents, Collection, CommandInteraction } from 
 import { GenericCommandData } from "./base.command.ts";
 import { EventsCollection } from "./base.event.ts";
 import { GenericResponderInteraction, ResponderData, ResponderInteraction, ResponderRouter, ResponderType } from "./base.responder.ts";
+import { GenericPrefixCommandData } from "./base.prefix.ts";
 
 export type ContextName<S extends string> = S extends "" ? never : S;
 export type SlashName<S extends string> =
@@ -87,6 +88,7 @@ interface BaseStorageLoadLogs {
 }
 
 export interface BaseStorage {
+    prefix: Collection<string, GenericPrefixCommandData>;
     commands: Collection<string, GenericCommandData>;
     events: Collection<keyof ClientEvents, EventsCollection>;
     responders: ResponderRouter;

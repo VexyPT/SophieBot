@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
     BOT_TOKEN: z.string({ description: "Discord Bot Token is required" }).min(1),
+    DEFAULT_PREFIX: z.string({ description: "Default Prefix is required" }).min(1),
     MONGO_URI: z.string({ description: "MongoDb URI is required" }).min(1),
     SERVER_PORT: z.string().refine(v => !Number.isNaN(Number(v)), "Invalid server port").optional(),
     MAIN_GUILD_ID: z.string().refine(v => !Number.isNaN(Number(v)), "Invalid GuildID (MAIN_GUILD_ID"),

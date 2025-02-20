@@ -4,6 +4,7 @@ import { BaseStorage } from "./base.types.js";
 import { createRouter } from "rou3";
 
 export const baseStorage: BaseStorage = {
+    prefix: new Collection(),
     commands: new Collection(),
     events: new Collection(),
     responders: createRouter(),
