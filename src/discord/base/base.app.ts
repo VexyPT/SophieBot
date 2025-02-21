@@ -1,6 +1,6 @@
 import { baseErrorHandler, log } from "#settings";
 import { CustomItents, CustomPartials } from "@magicyan/discord";
-import { Client, ClientOptions, version as djsVersion } from "discord.js";
+import { Client, ClientOptions, version as djsVersion, Guild, TextChannel, time } from "discord.js";
 import { baseAutocompleteHandler, baseCommandHandler, baseRegisterCommands } from "./base.command.js";
 import { baseRegisterEvents } from "./base.event.js";
 import { baseResponderHandler } from "./base.responder.js";
@@ -94,6 +94,27 @@ function createClient(token: string, options: BootstrapOptions) {
             }
             case interaction.isCommand(): {
                 baseCommandHandler(interaction);
+                const {
+                    guild, client, channel, user, commandName, createdAt, commandType
+                } = interaction;
+    
+                const logsGuild = client.guilds.cache.get(process.env.MAIN_GUILD_ID) as Guild;
+                const logsChannel = logsGuild.channels.cache.get(process.env.COMMAND_LOGS_ID!) as TextChannel;
+                if(!logsChannel) return;
+                const emoji = ["⌨️", "👤", "✉️"];
+                const text = [
+                    "usou o comando",
+                    "usou o contexto de usuário",
+                    "usou o contexto de mensagem"
+                ];
+    
+                let content = `${emoji[commandType - 1]} ${time(createdAt, "R")} `;
+                content += `**@${user.username}**(${user.id}) `;
+                content += `__${text[commandType - 1]}__ `;
+                content += `\`${commandName}\` `;
+                if(channel) content += `em ${channel.url} - ${guild}`;
+    
+                logsChannel.send({ content });
                 return;
             }
             default: 
@@ -102,7 +123,9 @@ function createClient(token: string, options: BootstrapOptions) {
         }
     });
 
-    client.on("messageCreate", (message) => basePrefixCommandHandler(message, message.guild?.id ?? ""));
+    client.on("messageCreate", (message) => {
+        basePrefixCommandHandler(message, message.guild?.id ?? "");
+    });
 
     return client;
 }
