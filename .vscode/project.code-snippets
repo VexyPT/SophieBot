@@ -5,9 +5,9 @@
 		"body": [
 			"createPrefixCommand({",
 			"    name: \"$1\",",
-			"    alias: \"[]\"",
+			"    alias: [\"\"]",
 			"    description: \"prefix command\",",
-			"    async run(message){",
+			"    async run(message) {",
 			"        $3",
 			"    }",
 			"});"
@@ -22,7 +22,7 @@
 			"    name: \"$1\",",
 			"    description: \"app command\",",
 			"    type: ApplicationCommandType.ChatInput,",
-			"    async run(interaction){",
+			"    async run(interaction) {",
 			"        $3",
 			"    }",
 			"});"

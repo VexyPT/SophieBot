@@ -1,6 +1,7 @@
 import ck from "chalk";
 import { Message } from "discord.js";
 import { baseStorage } from "./base.storage.js";
+import { db } from "#database";
 
 export interface PrefixCommandData {
     name: string;
@@ -11,12 +12,13 @@ export interface PrefixCommandData {
 
 export type GenericPrefixCommandData = PrefixCommandData;
 
-export async function basePrefixCommandHandler(message: Message) {
+export async function basePrefixCommandHandler(message: Message, guildId: string) {
     const { content } = message;
+    const prefix = String((await db.guilds.get(guildId)).prefix);
 
     const [base, ...args] = content.split(" ");
-    if (!base.startsWith(process.env.DEFAULT_PREFIX)) return;
-    const commandName = base.replace("!", "");
+    if (!base.startsWith(prefix)) return;
+    const commandName = base.replace(prefix, "");
     const command = baseStorage.prefix.get(commandName) ?? baseStorage.prefix.find(
         command => command.alias && command.alias.some(alias => alias === commandName)
     );
@@ -27,5 +29,5 @@ export async function basePrefixCommandHandler(message: Message) {
 
 export function basePrefixCommandLog(data: GenericPrefixCommandData) {
     baseStorage.loadLogs.commands
-    .push(ck.green(`[!PREFIX] ${ck.blue.underline(data.name)} command loaded!`))
+    .push(ck.green(`[PREFIX] ${ck.blue.underline(data.name)} command loaded!`))
 };

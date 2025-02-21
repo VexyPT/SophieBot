@@ -4,6 +4,7 @@ import { t } from "../utils.js";
 export const guildSchema = new Schema(
     {
         id: t.string,
+        prefix: { type: String, default: `${process.env.DEFAULT_PREFIX}` }
     },
     {
         statics: {

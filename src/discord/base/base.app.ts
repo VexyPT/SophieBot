@@ -102,7 +102,7 @@ function createClient(token: string, options: BootstrapOptions) {
         }
     });
 
-    client.on("messageCreate", basePrefixCommandHandler);
+    client.on("messageCreate", (message) => basePrefixCommandHandler(message, message.guild?.id ?? ""));
 
     return client;
 }
