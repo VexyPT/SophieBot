@@ -5,7 +5,7 @@
 		"body": [
 			"createPrefixCommand({",
 			"    name: \"$1\",",
-			"    alias: [\"\"]",
+			"    alias: [\"\"],",
 			"    description: \"prefix command\",",
 			"    async run(message) {",
 			"        $3",
